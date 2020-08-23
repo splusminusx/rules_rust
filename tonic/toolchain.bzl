@@ -2,8 +2,8 @@
 
 def generated_file_stem(f):
     basename = f.rsplit("/", 1)[-1]
-    basename = basename.replace("-", "_")
-    return basename.rsplit(".", 1)[0]
+    basename = basename.rsplit(".", 1)[0]
+    return basename.replace("-", "_").replace(".", "_")
 
 def rust_generate_proto(
         ctx,
