@@ -192,23 +192,30 @@ Builds a Rust library crate from a set of `proto_library`s.
 Example:
 
 ```
-load("@io_bazel_rules_rust//proto:proto.bzl", "rust_proto_library")
-load("@io_bazel_rules_rust//proto:toolchain.bzl", "PROTO_COMPILE_DEPS")
+load("@io_bazel_rules_rust//tonic:tonic.bzl", "rust_tonic_library")
+load("@io_bazel_rules_rust//rust:rust.bzl", "rust_library")
+load("@io_bazel_rules_rust//rust:rust.bzl", "rust_binary")
 
-proto_library(
-    name = "my_proto",
-    srcs = ["my.proto"]
+package(default_visibility = ["//proto:__subpackages__"])
+
+rust_tonic_library(
+    name = "common_tonic_rust",
+    deps = ["//tonic:common"],
 )
 
-proto_rust_library(
-    name = "rust",
-    deps = [":my_proto"],
+rust_library(
+    name = "common_lib",
+    srcs = ["lib.rs"],
+    deps = [":common_tonic_rust"],
 )
 
 rust_binary(
-    name = "my_proto_binary",
-    srcs = ["my_proto_binary.rs"],
-    deps = [":rust"] + PROTO_COMPILE_DEPS,
+    name = "common_bin",
+    srcs = ["main.rs"],
+    deps = [
+        ":common_lib",
+        ":common_tonic_rust",
+    ],
 )
 ```
 """,
