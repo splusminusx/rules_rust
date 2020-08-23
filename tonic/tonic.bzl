@@ -81,7 +81,7 @@ def _gen_lib(ctx, srcs, lib):
     """Generate a lib.rs file for the crates."""
     content = []
     for f in srcs.to_list():
-        content.append("#[path = \"%s\.rs"]" % _generated_file_stem(f))
+        content.append("#[path = \"%s.rs\"]" % _generated_file_stem(f))
         content.append("pub mod %s;" % _generated_file_stem(f).replace(".", "_"))
     ctx.actions.write(lib, "\n".join(content))
 
