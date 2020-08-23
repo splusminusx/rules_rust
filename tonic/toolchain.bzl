@@ -1,9 +1,9 @@
 """Toolchain for compiling rust stubs from tonic gRPC."""
 
 def generated_file_stem(f):
-    basename = f.rsplit("/", 2)[-1]
+    basename = f.rsplit("/", 1)[-1]
     basename = basename.replace("-", "_")
-    return basename.rsplit(".", 2)[0]
+    return basename.rsplit(".", 1)[0]
 
 def rust_generate_proto(
         ctx,
