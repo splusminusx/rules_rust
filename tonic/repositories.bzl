@@ -16,6 +16,18 @@ def rust_tonic_repositories():
         ],
     )
 
+    maybe(
+        http_archive,
+        name = "rules_python",
+        strip_prefix = "rules_python-0.0.1",
+        type = "zip",
+        urls = [
+            "https://mirror.bazel.build/github.com/bazelbuild/rules_python/archive/0.0.1.zip",
+            "https://github.com/bazelbuild/rules_python/archive/0.0.1.zip",
+        ],
+        sha256 = "f73c0cf51c32c7aaeaf02669ed03b32d12f2d92e1b05699eb938a75f35a210f4",
+    )
+
     _generator_deps()
     _library_deps()
 
