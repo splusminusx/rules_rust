@@ -1,0 +1,29 @@
+[package]
+name = "fake_lib"
+version = "0.1.0"
+edition = "2018"
+
+[lib]
+path = "fake_lib"
+
+[dependencies]
+tonic = "0.3.1"
+prost = "0.6.1"
+tokio = { version = "0.2.22", features = ["full"] }
+
+[raze]
+workspace_path = "//tonic/raze"
+genmode = "Remote"
+gen_workspace_prefix = "tonic_deps"
+
+[raze.crates.indexmap.'1.5.1']
+additional_flags = [
+    "--cfg=has_std",
+]
+
+[raze.crates.proc-macro2.'1.0.19']
+additional_flags = [
+    "--cfg=u128",
+    "--cfg=use_proc_macro",
+    "--cfg=wrap_proc_macro",
+]

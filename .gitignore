@@ -9,7 +9,9 @@
 # rustfmt
 *.rs.bk
 
-# protobuf cargo-raze files
+# cargo-raze files
 /proto/raze/target
+/tonic/raze/target
+/tonic/generator/raze/target
 
 node_modules

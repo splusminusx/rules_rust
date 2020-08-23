@@ -1,0 +1,39 @@
++++ src/lib.rs
+@@ -520,7 +520,7 @@ impl Config {
+         let tmp = tempfile::Builder::new().prefix("prost-build").tempdir()?;
+         let descriptor_set = tmp.path().join("prost-descriptor-set");
+
+-        let mut cmd = Command::new(protoc());
++        let mut cmd = Command::new(protoc().as_path());
+         cmd.arg("--include_imports")
+             .arg("--include_source_info")
+             .arg("-o")
+@@ -532,7 +532,7 @@ impl Config {
+
+         // Set the protoc include after the user includes in case the user wants to
+         // override one of the built-in .protos.
+-        cmd.arg("-I").arg(protoc_include());
++        cmd.arg("-I").arg(protoc_include().as_path());
+
+         for proto in protos {
+             cmd.arg(proto.as_ref());
+@@ -676,13 +676,15 @@ where
+ }
+
+ /// Returns the path to the `protoc` binary.
+-pub fn protoc() -> &'static Path {
+-    Path::new(env!("PROTOC"))
++pub fn protoc() -> PathBuf {
++    let path_string = env::var("PROTOC").expect("Environment variable PROTOC should be set.");
++    PathBuf::from(path_string)
+ }
+
+ /// Returns the path to the Protobuf include directory.
+-pub fn protoc_include() -> &'static Path {
+-    Path::new(env!("PROTOC_INCLUDE"))
++pub fn protoc_include() -> PathBuf {
++    let path_string = env::var("PROTOC_INCLUDE").expect("Environment variable PROTOC_INCLUDE should be set.");
++    PathBuf::from(path_string)
+ }
+
+ #[cfg(test)]

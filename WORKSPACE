@@ -26,6 +26,7 @@ http_archive(
 
 # TODO: Move this to examples/WORKSPACE when recursive repositories are enabled.
 load("@io_bazel_rules_rust//rust:repositories.bzl", "rust_repositories")
+
 rust_repositories()
 
 new_git_repository(
@@ -36,12 +37,19 @@ new_git_repository(
 )
 
 load("@io_bazel_rules_rust//proto:repositories.bzl", "rust_proto_repositories")
+
 rust_proto_repositories()
 
+load("@io_bazel_rules_rust//tonic:repositories.bzl", "rust_tonic_repositories")
+
+rust_tonic_repositories()
+
 load("@io_bazel_rules_rust//bindgen:repositories.bzl", "rust_bindgen_repositories")
+
 rust_bindgen_repositories()
 
 load("@io_bazel_rules_rust//wasm_bindgen:repositories.bzl", "rust_wasm_bindgen_repositories")
+
 rust_wasm_bindgen_repositories()
 
 http_archive(
@@ -51,6 +59,7 @@ http_archive(
 )
 
 load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories", "npm_install")
+
 node_repositories()
 
 # Dependencies for the @examples//hello_world_wasm example.
@@ -71,8 +80,8 @@ http_archive(
     sha256 = "d8c2f20deb2f6143bac792d210db1a4872102d81529fe0ea3476c1696addd7ff",
     strip_prefix = "bazel-toolchains-0.28.3",
     urls = [
-      "https://mirror.bazel.build/github.com/bazelbuild/bazel-toolchains/archive/0.28.3.tar.gz",
-      "https://github.com/bazelbuild/bazel-toolchains/archive/0.28.3.tar.gz",
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-toolchains/archive/0.28.3.tar.gz",
+        "https://github.com/bazelbuild/bazel-toolchains/archive/0.28.3.tar.gz",
     ],
 )
 
@@ -85,7 +94,9 @@ rbe_autoconfig(
 )
 
 load("@io_bazel_rules_rust//:workspace.bzl", "bazel_version")
+
 bazel_version(name = "bazel_version")
 
 load("@examples//hello_sys:workspace.bzl", "remote_deps")
+
 remote_deps()

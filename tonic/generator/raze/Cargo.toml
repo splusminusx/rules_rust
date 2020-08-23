@@ -1,0 +1,30 @@
+[package]
+name = "fake_lib"
+version = "0.1.0"
+edition = "2018"
+
+[lib]
+path = "fake_lib"
+
+[dependencies]
+tonic-build = "0.3.0"
+clap = "2.33.0"
+
+[raze]
+workspace_path = "//tonic/generator/raze"
+genmode = "Remote"
+gen_workspace_prefix = "tonic_code_generator"
+
+[raze.crates.indexmap.'1.5.1']
+additional_flags = [
+    "--cfg=has_std",
+]
+
+[raze.crates.proc-macro2.'1.0.19']
+additional_flags = [
+    "--cfg=u128",
+    "--cfg=use_proc_macro",
+]
+
+[raze.crates.prost-build.'0.6.1']
+patches = ["@io_bazel_rules_rust//tonic/generator/raze/patches:prost-build-0.6.1.patch"]
